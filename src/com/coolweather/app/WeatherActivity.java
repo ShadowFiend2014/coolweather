@@ -2,6 +2,7 @@ package com.coolweather.app;
 
 import com.coolweather.app.util.HttpCallbackListener;
 import com.coolweather.app.util.HttpUtil;
+import com.coolweather.app.util.L;
 import com.coolweather.app.util.Utility;
 
 import android.app.Activity;
@@ -52,6 +53,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		switchCity = (Button) findViewById(R.id.switch_city);
 		refreshWeather = (Button) findViewById(R.id.refresh_weather);
 		String countyCode = getIntent().getStringExtra("county_code");
+		L.i("WeatherAct " + countyCode);
 		if(!TextUtils.isEmpty(countyCode)){
 			publishTime.setText("同步中......");
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
@@ -65,6 +67,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	}
 
 	private void showWeather() {
+		L.i("showWeather");
 		SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
 		cityName.setText(preference.getString("city_name", ""));
 		publishTime.setText(preference.getString("publish_time", ""));
@@ -82,6 +85,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	}
 
 	private void queryFromServer(final String addr, final String type) {
+		L.i(addr);
 		HttpUtil.sendHttpRequest(addr, new HttpCallbackListener() {
 			
 			@Override
@@ -90,9 +94,11 @@ public class WeatherActivity extends Activity implements OnClickListener {
 					if(!TextUtils.isEmpty(result)){
 						String[] arr = result.split("\\|");
 						String weatherCode = arr[1];
+						L.i(weatherCode);
 						queryWeatherInfo(weatherCode);
 					}
 				} else if("weatherCode".equals(type)){
+					L.i(result);
 					Utility.handleWeatherResponse(WeatherActivity.this, result);
 					runOnUiThread(new Runnable() {
 						

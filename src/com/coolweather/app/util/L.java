@@ -18,7 +18,7 @@ public class L {
 	
 	public static final int NO = 6;
 	
-	public static final int LEVEL = INFO;
+	public static final int LEVEL = VERBOSE;
 	
 	public static void v(String tag, String msg){
 		if(LEVEL <= VERBOSE){

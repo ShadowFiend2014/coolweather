@@ -28,6 +28,7 @@ public class HttpUtil {
 						result.append(line);
 					}
 					if(listener != null){
+						L.i(result.toString());
 						listener.onFinish(result.toString());
 					} else {
 						L.e("listener null");
