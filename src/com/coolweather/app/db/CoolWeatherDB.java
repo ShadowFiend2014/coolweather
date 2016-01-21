@@ -15,8 +15,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class CoolWeatherDB {
 
-	private final String TAG = "CoolWeatherDB";
-	
 	public static final String DB_NAME = "cool_weather";
 	
 	public static final int VERSION = 1;
@@ -44,9 +42,9 @@ public class CoolWeatherDB {
 			contentValues.put("province_name", province.getProvinceName());
 			contentValues.put("province_code", province.getProvinceCode());
 			long result = db.insert("Province", null, contentValues);
-			L.i(TAG, "saveProvince SQLiteDatabase.insert = " + result);
+			L.i("saveProvince SQLiteDatabase.insert = " + result);
 		} else {
-			L.e(TAG, "province is null");
+			L.e("province is null");
 		}
 	}
 	
@@ -62,7 +60,7 @@ public class CoolWeatherDB {
 				pList.add(province);
 			}while(cursor.moveToNext());
 		} else {
-			L.e(TAG, "Province table is null");
+			L.e("Province table is null");
 		}
 		return pList;
 	}
@@ -74,9 +72,9 @@ public class CoolWeatherDB {
 			contentValues.put("city_code", city.getCityCode());
 			contentValues.put("province_id", city.getProvinceId());
 			long result = db.insert("City", null, contentValues);
-			L.i(TAG, "saveCity SQLiteDatabase.insert = " + result);
+			L.i("saveCity SQLiteDatabase.insert = " + result);
 		} else {
-			L.e(TAG, "city is null");
+			L.e("city is null");
 		}
 	}
 	
@@ -94,7 +92,7 @@ public class CoolWeatherDB {
 				cList.add(city);
 			}while(cursor.moveToNext());
 		} else {
-			L.e(TAG, "City table is null");
+			L.e("City table is null");
 		}
 		return cList;
 	}
@@ -106,15 +104,15 @@ public class CoolWeatherDB {
 			contentValues.put("county_code", county.getCountyCode());
 			contentValues.put("city_id", county.getCityId());
 			long result = db.insert("County", null, contentValues);
-			L.i(TAG, "saveCounty SQLiteDatabase.insert = " + result);
+			L.i("saveCounty SQLiteDatabase.insert = " + result);
 		} else {
-			L.e(TAG, "county is null");
+			L.e("county is null");
 		}
 	}
 	
 	public List<County> getCounties(int cityId){
 		List<County> cList = new ArrayList<County>();
-		Cursor cursor = db.query("City", null, "city_id = ?", new String[]{String.valueOf(cityId)}, 
+		Cursor cursor = db.query("County", null, "city_id = ?", new String[]{String.valueOf(cityId)}, 
 				null, null, null);
 		if(cursor.moveToFirst()){
 			do{
@@ -126,7 +124,7 @@ public class CoolWeatherDB {
 				cList.add(county);
 			}while(cursor.moveToNext());
 		} else {
-			L.e(TAG, "County table is null");
+			L.e("County table is null");
 		}
 		return cList;
 	}
